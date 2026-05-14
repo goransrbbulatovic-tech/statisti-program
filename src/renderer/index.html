@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: photo: bg: blob:; font-src 'self' data:">
+    <title>ACMigo — Evidencija Statista</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { background: #0a0a14; color: #e2e8f0; font-family: system-ui, -apple-system, sans-serif; overflow: hidden; }
+      #root { width: 100vw; height: 100vh; display: flex; flex-direction: column; }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: #0a0a14; }
+      ::-webkit-scrollbar-thumb { background: #2a2a40; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #3a3a55; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./src/main.jsx"></script>
+  </body>
+</html>

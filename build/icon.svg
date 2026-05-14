@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Main background -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d0d1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#12122a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="stripGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1e3a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#141428;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="textGlow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rounded rect -->
+  <rect width="512" height="512" rx="96" fill="url(#bgGrad)"/>
+
+  <!-- Top glow line -->
+  <rect x="60" y="155" width="392" height="2" rx="1" fill="url(#goldGrad)" opacity="0.5"/>
+  <!-- Bottom glow line -->
+  <rect x="60" y="355" width="392" height="2" rx="1" fill="url(#goldGrad)" opacity="0.5"/>
+
+  <!-- Film strip body -->
+  <rect x="40" y="157" width="432" height="198" fill="url(#stripGrad)"/>
+
+  <!-- Gold border top -->
+  <rect x="40" y="157" width="432" height="5" fill="url(#goldGrad)"/>
+  <!-- Gold border bottom -->
+  <rect x="40" y="350" width="432" height="5" fill="url(#goldGrad)"/>
+
+  <!-- LEFT perforations -->
+  <rect x="48" y="172" width="30" height="22" rx="5" fill="#0a0a14"/>
+  <rect x="48" y="206" width="30" height="22" rx="5" fill="#0a0a14"/>
+  <rect x="48" y="240" width="30" height="22" rx="5" fill="#0a0a14"/>
+  <rect x="48" y="274" width="30" height="22" rx="5" fill="#0a0a14"/>
+  <rect x="48" y="308" width="30" height="22" rx="5" fill="#0a0a14"/>
+  <rect x="48" y="342" width="30" height="10" rx="3" fill="#0a0a14"/>
+
+  <!-- RIGHT perforations -->
+  <rect x="434" y="172" width="30" height="22" rx="5" fill="#0a0a14"/>
+  <rect x="434" y="206" width="30" height="22" rx="5" fill="#0a0a14"/>
+  <rect x="434" y="240" width="30" height="22" rx="5" fill="#0a0a14"/>
+  <rect x="434" y="274" width="30" height="22" rx="5" fill="#0a0a14"/>
+  <rect x="434" y="308" width="30" height="22" rx="5" fill="#0a0a14"/>
+  <rect x="434" y="342" width="30" height="10" rx="3" fill="#0a0a14"/>
+
+  <!-- Film frames dividers -->
+  <rect x="95" y="162" width="2" height="191" fill="#0a0a14" opacity="0.7"/>
+  <rect x="205" y="162" width="2" height="191" fill="#0a0a14" opacity="0.7"/>
+  <rect x="307" y="162" width="2" height="191" fill="#0a0a14" opacity="0.7"/>
+  <rect x="417" y="162" width="2" height="191" fill="#0a0a14" opacity="0.7"/>
+
+  <!-- Film frame 1 - subtle inner content -->
+  <rect x="100" y="170" width="100" height="172" rx="2" fill="#1a1a30" opacity="0.5"/>
+  <!-- Frame 2 - main AC frame -->
+  <rect x="208" y="170" width="96" height="172" rx="2" fill="#1a1a30" opacity="0.5"/>
+  <!-- Frame 3 -->
+  <rect x="312" y="170" width="100" height="172" rx="2" fill="#1a1a30" opacity="0.5"/>
+
+  <!-- Star sparkles - top left -->
+  <circle cx="130" cy="110" r="3" fill="#f59e0b" opacity="0.9" filter="url(#glow)"/>
+  <line x1="130" y1="100" x2="130" y2="120" stroke="#f59e0b" stroke-width="1.5" opacity="0.5"/>
+  <line x1="120" y1="110" x2="140" y2="110" stroke="#f59e0b" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Star sparkles - top right -->
+  <circle cx="382" cy="110" r="3" fill="#6366f1" opacity="0.9" filter="url(#glow)"/>
+  <line x1="382" y1="100" x2="382" y2="120" stroke="#6366f1" stroke-width="1.5" opacity="0.5"/>
+  <line x1="372" y1="110" x2="392" y2="110" stroke="#6366f1" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- "AC" letters - main text -->
+  <text
+    x="256"
+    y="288"
+    font-family="Arial Black, Arial, sans-serif"
+    font-weight="900"
+    font-size="110"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    fill="url(#goldGrad)"
+    filter="url(#textGlow)"
+    letter-spacing="-4"
+  >AC</text>
+
+  <!-- "MIGO" subtitle below film strip -->
+  <text
+    x="256"
+    y="408"
+    font-family="Arial, sans-serif"
+    font-weight="700"
+    font-size="42"
+    text-anchor="middle"
+    fill="#6366f1"
+    letter-spacing="8"
+  >MIGO</text>
+
+  <!-- Tiny dots decoration -->
+  <circle cx="200" cy="408" r="3" fill="#f59e0b" opacity="0.6"/>
+  <circle cx="312" cy="408" r="3" fill="#f59e0b" opacity="0.6"/>
+
+  <!-- Small film perfs top & bottom decorative -->
+  <circle cx="256" cy="68" r="8" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.3"/>
+  <circle cx="256" cy="68" r="3" fill="#f59e0b" opacity="0.6"/>
+
+  <!-- Corner accent dots -->
+  <circle cx="88" cy="90" r="4" fill="#f59e0b" opacity="0.25"/>
+  <circle cx="424" cy="90" r="4" fill="#f59e0b" opacity="0.25"/>
+  <circle cx="88" cy="445" r="4" fill="#6366f1" opacity="0.25"/>
+  <circle cx="424" cy="445" r="4" fill="#6366f1" opacity="0.25"/>
+</svg>

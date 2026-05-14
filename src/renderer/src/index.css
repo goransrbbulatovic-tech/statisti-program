@@ -1,0 +1,538 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME SYSTEM — CSS Custom Properties
+   Each theme overrides these variables on [data-theme]
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Accent (default: Cinema Gold) */
+  --ac1: 251 191 36;   /* amber-400 */
+  --ac2: 245 158 11;   /* amber-500 */
+  --ac3: 217 119 6;    /* amber-600 */
+  --ac-text: 0 0 0;    /* text on accent bg */
+
+  /* Backgrounds */
+  --bg1: 10 10 20;     /* darkest - page bg */
+  --bg2: 18 18 30;     /* cards */
+  --bg3: 8 8 15;       /* sidebar */
+  --bg4: 14 14 26;     /* inputs */
+  --bg5: 26 26 40;     /* hover */
+
+  /* Borders */
+  --bd1: 30 30 48;
+  --bd2: 42 42 64;
+
+  /* Secondary accent (used in sidebar MIGO text etc.) */
+  --ac-sec: 99 102 241; /* indigo-500 */
+}
+
+/* ── 1. CINEMA GOLD (default) ─────────────────────────── */
+[data-theme="cinema"] {
+  --ac1: 251 191 36;
+  --ac2: 245 158 11;
+  --ac3: 217 119 6;
+  --ac-text: 0 0 0;
+  --bg1: 10 10 20;
+  --bg2: 18 18 30;
+  --bg3: 8 8 15;
+  --bg4: 14 14 26;
+  --bg5: 26 26 40;
+  --bd1: 30 30 48;
+  --bd2: 42 42 64;
+  --ac-sec: 99 102 241;
+}
+
+/* ── 2. HOLLYWOOD — Cinematic Red & Gold ─────────────── */
+[data-theme="hollywood"] {
+  --ac1: 220 180 60;    /* warm gold */
+  --ac2: 185 28 28;     /* deep crimson */
+  --ac3: 153 27 27;
+  --ac-text: 255 255 255;
+  --bg1: 8 4 4;
+  --bg2: 16 8 8;
+  --bg3: 5 2 2;
+  --bg4: 12 5 5;
+  --bg5: 28 10 10;
+  --bd1: 50 18 18;
+  --bd2: 70 25 25;
+  --ac-sec: 220 180 60;
+}
+
+/* ── 3. SAPPHIRE NIGHT ────────────────────────────────── */
+[data-theme="sapphire"] {
+  --ac1: 147 197 253;
+  --ac2: 96 165 250;
+  --ac3: 59 130 246;
+  --ac-text: 0 0 0;
+  --bg1: 5 8 20;
+  --bg2: 10 15 32;
+  --bg3: 3 5 15;
+  --bg4: 8 12 26;
+  --bg5: 15 22 45;
+  --bd1: 20 30 70;
+  --bd2: 30 45 100;
+  --ac-sec: 192 132 252;
+}
+
+/* ── 4. EMERALD STUDIO ────────────────────────────────── */
+[data-theme="emerald"] {
+  --ac1: 110 231 183;
+  --ac2: 52 211 153;
+  --ac3: 16 185 129;
+  --ac-text: 0 0 0;
+  --bg1: 4 12 10;
+  --bg2: 8 20 16;
+  --bg3: 2 8 6;
+  --bg4: 6 16 12;
+  --bg5: 12 28 22;
+  --bd1: 15 45 35;
+  --bd2: 22 65 50;
+  --ac-sec: 94 234 212;
+}
+
+/* ── 5. VIOLET DUSK ───────────────────────────────────── */
+[data-theme="violet"] {
+  --ac1: 196 181 253;
+  --ac2: 167 139 250;
+  --ac3: 139 92 246;
+  --ac-text: 0 0 0;
+  --bg1: 8 5 18;
+  --bg2: 14 10 28;
+  --bg3: 5 3 12;
+  --bg4: 10 7 22;
+  --bg5: 20 14 38;
+  --bd1: 35 22 70;
+  --bd2: 55 35 100;
+  --ac-sec: 244 114 182;
+}
+
+/* ── 6. STEEL PRO ─────────────────────────────────────── */
+[data-theme="steel"] {
+  --ac1: 203 213 225;
+  --ac2: 148 163 184;
+  --ac3: 100 116 139;
+  --ac-text: 0 0 0;
+  --bg1: 8 10 12;
+  --bg2: 14 17 20;
+  --bg3: 5 7 9;
+  --bg4: 11 13 16;
+  --bg5: 20 24 28;
+  --bd1: 28 33 38;
+  --bd2: 40 48 55;
+  --ac-sec: 125 211 252;
+}
+
+/* ── 7. NEON NOIR ─────────────────────────────────────── */
+[data-theme="neon"] {
+  --ac1: 249 168 212;
+  --ac2: 236 72 153;
+  --ac3: 219 39 119;
+  --ac-text: 255 255 255;
+  --bg1: 5 3 12;
+  --bg2: 10 5 20;
+  --bg3: 3 2 8;
+  --bg4: 7 4 16;
+  --bg5: 16 8 32;
+  --bd1: 30 10 55;
+  --bd2: 50 18 85;
+  --ac-sec: 34 211 238;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME OVERRIDES — Map accent vars to Tailwind amber classes
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Accent text colors */
+.text-amber-300, .text-amber-400 { color: rgb(var(--ac1)) !important; }
+.text-amber-500, .text-amber-600 { color: rgb(var(--ac2)) !important; }
+
+/* Accent backgrounds */
+.bg-amber-400 { background-color: rgb(var(--ac1)) !important; }
+.bg-amber-500 { background-color: rgb(var(--ac2)) !important; }
+
+/* Accent bg with opacity — handled via border-color overrides below */
+.bg-amber-500\/5  { background-color: rgb(var(--ac2) / 0.05)  !important; }
+.bg-amber-500\/10 { background-color: rgb(var(--ac2) / 0.10)  !important; }
+.bg-amber-500\/15 { background-color: rgb(var(--ac2) / 0.15)  !important; }
+.bg-amber-500\/20 { background-color: rgb(var(--ac2) / 0.20)  !important; }
+.bg-amber-500\/30 { background-color: rgb(var(--ac2) / 0.30)  !important; }
+
+/* Accent borders */
+.border-amber-500    { border-color: rgb(var(--ac2))         !important; }
+.border-amber-500\/20 { border-color: rgb(var(--ac2) / 0.20) !important; }
+.border-amber-500\/30 { border-color: rgb(var(--ac2) / 0.30) !important; }
+.border-amber-500\/40 { border-color: rgb(var(--ac2) / 0.40) !important; }
+.border-amber-500\/50 { border-color: rgb(var(--ac2) / 0.50) !important; }
+
+/* Ring */
+.ring-amber-500\/30 { --tw-ring-color: rgb(var(--ac2) / 0.30) !important; }
+
+/* Focus border */
+.focus\:border-amber-500\/60:focus { border-color: rgb(var(--ac2) / 0.60) !important; }
+.focus\:ring-amber-500\/30:focus   { --tw-ring-color: rgb(var(--ac2) / 0.30) !important; }
+
+/* Shadow */
+.shadow-amber-500\/5  { --tw-shadow-color: rgb(var(--ac2) / 0.05) !important; }
+
+/* Badge amber */
+.badge-amber {
+  background-color: rgb(var(--ac2) / 0.15) !important;
+  color: rgb(var(--ac1)) !important;
+  border-color: rgb(var(--ac2) / 0.20) !important;
+}
+
+/* Background overrides */
+body { background-color: rgb(var(--bg1)) !important; }
+
+.bg-\[#0a0a14\]  { background-color: rgb(var(--bg1)) !important; }
+.bg-\[#12121e\]  { background-color: rgb(var(--bg2)) !important; }
+.bg-\[#08080f\]  { background-color: rgb(var(--bg3)) !important; }
+.bg-\[#0e0e1a\]  { background-color: rgb(var(--bg4)) !important; }
+.bg-\[#1a1a28\]  { background-color: rgb(var(--bg5)) !important; }
+.bg-\[#1e1e30\]  { background-color: rgb(var(--bd1)) !important; }
+.bg-\[#2a2a40\]  { background-color: rgb(var(--bd2)) !important; }
+
+.hover\:bg-\[#1a1a28\]:hover { background-color: rgb(var(--bg5)) !important; }
+.hover\:bg-\[#1e1e30\]:hover { background-color: rgb(var(--bd1)) !important; }
+.hover\:bg-\[#2a2a40\]:hover { background-color: rgb(var(--bd2)) !important; }
+
+/* Border overrides */
+.border-\[#1e1e30\] { border-color: rgb(var(--bd1)) !important; }
+.border-\[#2a2a40\] { border-color: rgb(var(--bd2)) !important; }
+.border-\[#1a1a28\] { border-color: rgb(var(--bd1)) !important; }
+.border-\[#3a3a55\] { border-color: rgb(var(--bd2)) !important; }
+
+.divide-\[#1e1e30\] > * + * { border-color: rgb(var(--bd1)) !important; }
+
+/* ── Hollywood special bg gradient ─────────────────── */
+[data-theme="hollywood"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 0% 50%, rgb(120 10 10 / 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 50%, rgb(100 8 8 / 0.10) 0%, transparent 60%);
+}
+
+[data-theme="hollywood"] .sidebar-item-active {
+  background: linear-gradient(135deg, rgb(185 28 28 / 0.25), rgb(220 180 60 / 0.10)) !important;
+  border-color: rgb(185 28 28 / 0.50) !important;
+  color: rgb(220 180 60) !important;
+}
+
+[data-theme="hollywood"] .btn-primary {
+  background: linear-gradient(135deg, rgb(185 28 28), rgb(220 40 40)) !important;
+  color: white !important;
+}
+
+[data-theme="hollywood"] .btn-primary:hover {
+  background: linear-gradient(135deg, rgb(220 38 38), rgb(239 68 68)) !important;
+}
+
+/* ── Neon special glow effects ───────────────────────── */
+[data-theme="neon"] .btn-primary {
+  box-shadow: 0 0 20px rgb(236 72 153 / 0.4) !important;
+}
+[data-theme="neon"] .card {
+  box-shadow: 0 1px 0 rgb(var(--ac2) / 0.05) inset !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BASE COMPONENT STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+@layer base {
+  * { box-sizing: border-box; }
+
+  body {
+    color: #e2e8f0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background-color 0.3s ease;
+  }
+
+  input, textarea, select {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+}
+
+@layer components {
+  .card {
+    background-color: rgb(var(--bg2));
+    border: 1px solid rgb(var(--bd1));
+    border-radius: 0.75rem;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-200 cursor-pointer;
+  }
+  .card-hover:hover {
+    border-color: rgb(var(--ac2) / 0.30);
+    box-shadow: 0 8px 25px -5px rgb(var(--ac2) / 0.05);
+  }
+
+  .btn-primary {
+    background-color: rgb(var(--ac2));
+    color: rgb(var(--ac-text));
+    @apply font-semibold px-4 py-2 rounded-lg transition-all duration-200
+           flex items-center gap-2 text-sm active:scale-95
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary:hover { background-color: rgb(var(--ac1)); }
+
+  .btn-secondary {
+    background-color: rgb(var(--bd1));
+    border: 1px solid rgb(var(--bd2));
+    @apply text-gray-200 font-medium px-4 py-2 rounded-lg
+           transition-all duration-200 flex items-center gap-2 text-sm
+           active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary:hover { background-color: rgb(var(--bd2)); }
+
+  .btn-danger {
+    @apply bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20
+           font-medium px-4 py-2 rounded-lg transition-all duration-200
+           flex items-center gap-2 text-sm active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply text-gray-400 hover:text-gray-200 px-3 py-2 rounded-lg
+           transition-all duration-200 flex items-center gap-2 text-sm;
+  }
+  .btn-ghost:hover { background-color: rgb(var(--bd1)); }
+
+  .input-field {
+    background-color: rgb(var(--bg1));
+    border: 1px solid rgb(var(--bd2));
+    @apply text-gray-100 rounded-lg px-3 py-2.5
+           focus:outline-none placeholder:text-gray-600
+           transition-colors duration-200 text-sm w-full;
+  }
+  .input-field:focus {
+    border-color: rgb(var(--ac2) / 0.60);
+    box-shadow: 0 0 0 1px rgb(var(--ac2) / 0.30);
+  }
+  .input-field:disabled { @apply opacity-50 cursor-not-allowed; }
+
+  .label { @apply text-xs font-medium text-gray-400 mb-1.5 block; }
+  .form-group { @apply flex flex-col; }
+
+  .badge { @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium; }
+  .badge-green  { @apply badge bg-green-500/15  text-green-400  border border-green-500/20; }
+  .badge-red    { @apply badge bg-red-500/15    text-red-400    border border-red-500/20; }
+  .badge-amber  { @apply badge text-xs; background-color: rgb(var(--ac2)/0.15); color: rgb(var(--ac1)); border: 1px solid rgb(var(--ac2)/0.20); }
+  .badge-blue   { @apply badge bg-blue-500/15   text-blue-400   border border-blue-500/20; }
+  .badge-purple { @apply badge bg-purple-500/15 text-purple-400 border border-purple-500/20; }
+  .badge-gray   { @apply badge bg-gray-500/15   text-gray-400   border border-gray-500/20; }
+
+  .stat-card { @apply card p-5 flex items-center gap-4; }
+  .stat-icon { @apply w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0; }
+
+  .page-header  { @apply flex items-center justify-between mb-6; }
+  .page-title   { @apply text-2xl font-bold text-white; }
+  .section-title { @apply text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3; }
+  .table-header { @apply text-xs font-semibold text-gray-500 uppercase tracking-wider; }
+
+  .table-row {
+    border-bottom: 1px solid rgb(var(--bd1));
+    @apply transition-colors duration-150 cursor-pointer;
+  }
+  .table-row:hover { background-color: rgb(var(--bg5)); }
+
+  .tab-btn { @apply px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200; }
+  .tab-btn-active  { @apply tab-btn; background-color: rgb(var(--ac2)/0.15); color: rgb(var(--ac1)); border: 1px solid rgb(var(--ac2)/0.30); }
+  .tab-btn-inactive { @apply tab-btn text-gray-500 hover:text-gray-300; }
+  .tab-btn-inactive:hover { background-color: rgb(var(--bd1)); }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+           transition-all duration-200 cursor-pointer;
+  }
+  .sidebar-item-active {
+    @apply sidebar-item;
+    background-color: rgb(var(--ac2) / 0.15);
+    color: rgb(var(--ac1));
+    border: 1px solid rgb(var(--ac2) / 0.20);
+  }
+  .sidebar-item-inactive {
+    @apply sidebar-item text-gray-500 hover:text-gray-300;
+  }
+  .sidebar-item-inactive:hover { background-color: rgb(var(--bg5)); }
+
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+    animation: fadeIn 0.15s ease-out;
+  }
+  .modal-content {
+    border: 1px solid rgb(var(--bd2));
+    background-color: rgb(var(--bg2));
+    @apply rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto;
+    animation: slideUp 0.2s ease-out;
+  }
+
+  .divider { border-top: 1px solid rgb(var(--bd1)); }
+
+  .scrollbar-thin::-webkit-scrollbar { width: 4px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background-color: rgb(var(--bd2)); border-radius: 2px; }
+
+  @media print {
+    .no-print { display: none !important; }
+    body { background: white !important; color: black !important; }
+  }
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgb(var(--bg1)); }
+::-webkit-scrollbar-thumb { background: rgb(var(--bd1)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--bd2)); }
+
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes pulse   { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+.skeleton {
+  background: linear-gradient(90deg, rgb(var(--bg5)) 25%, rgb(var(--bd1)) 50%, rgb(var(--bg5)) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+.animate-pulse-slow { animation: pulse 3s infinite; }
+.animate-fade-in    { animation: fadeIn 0.2s ease-in-out; }
+.animate-slide-up   { animation: slideUp 0.3s ease-out; }
+.animate-spin       { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════════════════════
+   BACKGROUND THEMES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Base background layer — applied on html element */
+html[data-bg] {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Overlay on main content area to keep readability */
+html[data-bg] body {
+  background: transparent !important;
+}
+html[data-bg] #root {
+  background: transparent !important;
+}
+html[data-bg] main {
+  background: transparent !important;
+}
+
+/* Cards become semi-transparent when bg is active */
+html[data-bg] .card {
+  background-color: rgb(var(--bg2) / 0.82) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+html[data-bg] aside {
+  background-color: rgb(0 0 0 / 0.75) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+html[data-bg] .modal-content {
+  background-color: rgb(var(--bg2) / 0.95) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ── 1. FILM NOIR ─────────────────────────────── */
+html[data-bg="noir"] {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgb(0 0 0 / 0.03) 2px, rgb(0 0 0 / 0.03) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgb(255 255 255 / 0.005) 3px, rgb(255 255 255 / 0.005) 6px),
+    radial-gradient(ellipse at 20% 50%, rgb(40 30 10 / 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgb(20 15 5 / 0.4) 0%, transparent 50%),
+    linear-gradient(160deg, #0a0805 0%, #0f0c08 40%, #080608 70%, #060408 100%);
+}
+
+/* ── 2. CINEMA RED ────────────────────────────── */
+html[data-bg="cinema-red"] {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgb(0 0 0 / 0.04) 2px, rgb(0 0 0 / 0.04) 4px),
+    radial-gradient(ellipse at 0% 0%, rgb(120 20 20 / 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgb(100 10 10 / 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgb(60 5 5 / 0.2) 0%, transparent 70%),
+    linear-gradient(135deg, #0d0404 0%, #120808 40%, #0a0404 70%, #060202 100%);
+}
+
+/* ── 3. DEEP COSMOS ───────────────────────────── */
+html[data-bg="cosmos"] {
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgb(255 255 255 / 0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 45%, rgb(255 255 255 / 0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 40% 10%, rgb(255 255 255 / 0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 70%, rgb(255 255 255 / 0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 30%, rgb(255 255 255 / 0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 55%, rgb(255 255 255 / 0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 80%, rgb(255 255 255 / 0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 85%, rgb(255 255 255 / 0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 95%, rgb(255 255 255 / 0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 10%, rgb(255 255 255 / 0.6) 0%, transparent 100%),
+    radial-gradient(2px 2px at 30% 60%, rgb(147 197 253 / 0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 70% 20%, rgb(196 181 253 / 0.3) 0%, transparent 100%),
+    radial-gradient(ellipse at 30% 40%, rgb(29 78 216 / 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 70%, rgb(109 40 217 / 0.2) 0%, transparent 50%),
+    linear-gradient(160deg, #020408 0%, #030510 40%, #020308 70%, #020208 100%);
+}
+
+/* ── 4. GOLDEN HOUR ───────────────────────────── */
+html[data-bg="golden"] {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgb(0 0 0 / 0.02) 2px, rgb(0 0 0 / 0.02) 4px),
+    radial-gradient(ellipse at 0% 100%, rgb(180 80 20 / 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 0%, rgb(200 120 10 / 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgb(150 80 10 / 0.15) 0%, transparent 60%),
+    linear-gradient(160deg, #0c0802 0%, #120e04 35%, #0e0a02 65%, #080600 100%);
+}
+
+/* ── 5. NEON CITY ─────────────────────────────── */
+html[data-bg="neon-city"] {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgb(0 0 0 / 0.06) 2px, rgb(0 0 0 / 0.06) 4px),
+    radial-gradient(ellipse at 10% 90%, rgb(236 72 153 / 0.2) 0%, transparent 40%),
+    radial-gradient(ellipse at 90% 10%, rgb(34 211 238 / 0.15) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgb(139 92 246 / 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 30% 30%, rgb(59 130 246 / 0.12) 0%, transparent 40%),
+    linear-gradient(160deg, #030208 0%, #05030c 40%, #030208 70%, #020108 100%);
+}
+
+/* ── 6. FOREST NIGHT ──────────────────────────── */
+html[data-bg="forest"] {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgb(0 0 0 / 0.03) 3px, rgb(0 0 0 / 0.03) 6px),
+    radial-gradient(ellipse at 20% 80%, rgb(20 80 30 / 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgb(10 60 20 / 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgb(5 40 15 / 0.15) 0%, transparent 60%),
+    linear-gradient(160deg, #020a04 0%, #040d06 40%, #020a04 70%, #010802 100%);
+}
+
+/* ── 7. OCEAN DEEP ────────────────────────────── */
+html[data-bg="ocean"] {
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgb(14 116 144 / 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 60%, rgb(3 105 161 / 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgb(7 89 133 / 0.12) 0%, transparent 50%),
+    linear-gradient(180deg, #020810 0%, #030c14 40%, #02080e 70%, #010608 100%);
+}
+
+/* ── 8. CUSTOM (user uploaded) ────────────────── */
+html[data-bg="custom"] {
+  background-image:
+    linear-gradient(rgb(0 0 0 / 0.55), rgb(0 0 0 / 0.55)),
+    var(--custom-bg-url);
+}
