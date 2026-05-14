@@ -1,0 +1,165 @@
+name: Build ACMigo
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Platform to build (all, win, mac, linux)'
+        required: false
+        default: 'all'
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'win' || github.event_name == 'push' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate icons
+        run: node scripts/generate-icons.cjs
+        continue-on-error: true
+
+      - name: Build Electron app
+        run: npm run dist:win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ACMigo-Windows
+          path: |
+            dist/*.exe
+            dist/*.zip
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            dist/*.exe
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-macos:
+    runs-on: macos-latest
+    if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'mac' || github.event_name == 'push' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install system dependencies
+        run: brew install vips || true
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate icons
+        run: node scripts/generate-icons.cjs
+        continue-on-error: true
+
+      - name: Build Electron app
+        run: npm run dist:mac
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+      - name: Upload macOS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ACMigo-macOS
+          path: |
+            dist/*.dmg
+            dist/*.zip
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            dist/*.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-linux:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'linux' || github.event_name == 'push' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            python3 \
+            libsqlite3-dev \
+            libvips-dev \
+            rpm \
+            fakeroot
+          sudo snap install snapcraft --classic || true
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate icons
+        run: node scripts/generate-icons.cjs
+        continue-on-error: true
+
+      - name: Build Electron app
+        run: npm run dist:linux
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ACMigo-Linux
+          path: |
+            dist/*.AppImage
+            dist/*.deb
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            dist/*.AppImage
+            dist/*.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
