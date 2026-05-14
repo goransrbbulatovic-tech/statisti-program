@@ -91,7 +91,14 @@ const BG_PRESETS = [
 function BgCard({ preset, active, onSelect, customUrl, onUpload, onDelete }) {
   return (
     <button
-      onClick={() => preset.isCustom ? onUpload() : onSelect(preset.id)}
+      onClick={() => {
+        if (preset.isCustom) {
+          if (customUrl) onSelect(preset.id)  // apply existing custom image
+          else onUpload()                      // no image yet — open file dialog
+        } else {
+          onSelect(preset.id)
+        }
+      }}
       className="relative group text-left transition-all duration-300 focus:outline-none"
     >
       <div
