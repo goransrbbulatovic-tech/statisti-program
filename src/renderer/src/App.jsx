@@ -129,11 +129,11 @@ export default function App() {
 
   return (
     <AppContext.Provider value={ctx}>
-      <div className="flex flex-col h-screen bg-[#0a0a14] overflow-hidden">
+      <div className="flex flex-col h-screen overflow-hidden" style={{ background: (bgTheme && bgTheme !== "none") ? "transparent" : "#0a0a14" }}>
         <TitleBar/>
         <div className="flex flex-1 overflow-hidden">
           <Sidebar/>
-          <main className="flex-1 overflow-y-auto scrollbar-thin bg-[#0a0a14]">
+          <main className="flex-1 overflow-y-auto scrollbar-thin" style={{ background: (bgTheme && bgTheme !== "none") ? "transparent" : "#0a0a14" }}>
             <div className="animate-fade-in">{renderPage()}</div>
           </main>
         </div>
