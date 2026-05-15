@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useApp } from '../App'
-import { applyBg, BG_NAMES } from '../utils/bgEngine'
+import { applyBg, BG_LABELS } from '../utils/bgEngine'
 import {
   Settings as SettingsIcon, Database, FolderOpen, Upload,
   Download, Info, Package, Check, Palette, Sparkles,
