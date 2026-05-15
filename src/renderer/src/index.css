@@ -536,3 +536,18 @@ html[data-bg="custom"] {
     linear-gradient(rgb(0 0 0 / 0.55), rgb(0 0 0 / 0.55)),
     var(--custom-bg-url);
 }
+
+/* ── Active background: make cards glass ───── */
+body.has-bg #root > div,
+body.has-bg #root > div > main {
+  background: transparent !important;
+}
+body.has-bg .card {
+  background-color: rgba(15,15,26,0.82) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+body.has-bg .modal-content {
+  background-color: rgba(10,10,18,0.97) !important;
+  backdrop-filter: blur(26px) !important;
+}
