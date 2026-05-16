@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useApp } from '../App'
-import { applyBg, BG_LABELS } from '../utils/bgEngine'
+import { BG_LABELS } from '../utils/bgEngine'
 import {
   Settings as SettingsIcon, Database, FolderOpen, Upload,
   Download, Info, Package, Check, Palette, Sparkles,
@@ -141,7 +141,7 @@ function ActionRow({ icon: Icon, label, description, action, actionLabel, danger
 
 // ─── MAIN ────────────────────────────────────────────────────────────────────
 export default function Settings() {
-  const { toast, refresh, theme, applyTheme, bgTheme, applyBg: applyBgCtx } = useApp()
+  const { toast, refresh, theme, applyTheme, bgTheme, bgCustomUrl: ctxBgUrl, setBgCustomUrl, applyBg } = useApp()
 
   const [version, setVersion]       = useState('—')
   const [dataPath, setDataPath]     = useState('—')
@@ -166,7 +166,7 @@ export default function Settings() {
     if (newMode === 'color') {
       // Turn off background
       applyBg('none')
-      applyBgCtx?.('none')
+      applyBg('none')
       setActiveBg('none')
       window.api?.setSetting?.('bg_theme', 'none')
     }
@@ -186,19 +186,19 @@ export default function Settings() {
       const url = `bg://${filename}`
       setCustomThumb(url)
       applyBg('custom', url)
-      applyBgCtx?.('custom', url)
+      applyBg('custom', url)
       setActiveBg('custom')
       window.api?.setSetting?.('bg_theme', 'custom')
       toast('Vlastita pozadina postavljena!', 'success')
     } else if (id === 'none') {
       applyBg('none')
-      applyBgCtx?.('none')
+      applyBg('none')
       setActiveBg('none')
       window.api?.setSetting?.('bg_theme', 'none')
       toast('Pozadina uklonjena')
     } else {
       applyBg(id)
-      applyBgCtx?.(id)
+      applyBg(id)
       setActiveBg(id)
       window.api?.setSetting?.('bg_theme', id)
       toast(`Pozadina: ${BG_PREVIEWS[id]?.label || id}`, 'success')
@@ -209,7 +209,7 @@ export default function Settings() {
     await window.api.deleteCustomBg?.()
     setCustomThumb(null)
     if (activeBg === 'custom') {
-      applyBg('none'); applyBgCtx?.('none'); setActiveBg('none')
+      applyBg('none'); applyBg('none'); setActiveBg('none')
       window.api?.setSetting?.('bg_theme', 'none')
     }
     toast('Vlastita slika obrisana')
