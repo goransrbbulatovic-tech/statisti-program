@@ -44,12 +44,12 @@ function FilmStripLogo() {
 }
 
 export default function Sidebar() {
-  const { page, navigate, statistike, bgTheme } = useApp()
+  const { page, navigate, statistike } = useApp()
   const [showNotif, setShowNotif] = useState(false)
   const notifCount = statistike?.notifikacije?.length || 0
 
   return (
-    <aside className="w-[200px] flex-shrink-0 border-r border-[#1a1a28] flex flex-col overflow-hidden relative" style={{ background: (bgTheme && bgTheme !== "none") ? "rgba(4,4,10,0.88)" : "#08080f", backdropFilter: (bgTheme && bgTheme !== "none") ? "blur(20px)" : "none" }}>
+    <aside className="w-[200px] flex-shrink-0 flex flex-col overflow-hidden relative" style={{ background: "transparent" }}>
       <FilmStripLogo/>
 
       <nav className="flex-1 px-2 py-4 space-y-0.5 overflow-y-auto scrollbar-thin">
